@@ -9,7 +9,7 @@
 
 
         </ul>
-        <cart :name="name" :cart="cart"></cart>
+        <cart :name="name"></cart>
     </div>
 </template>
 
@@ -30,19 +30,13 @@
           {id: 2, text: "web", price: 80},
           {id: 3, text: "Python", price: 60},
           {id: 4, text: "Java", price: 80}
-        ],
-        cart: []
-      };
+        ]
+      }
     },
     methods: {
       addCart(i) {
         const good = this.goods[i];
-        const ret = this.cart.find(v => v.text == good.text);
-        if (ret) {
-          ret.count += 1;
-        } else {
-          this.cart.push({...good, active: true, count: 1});
-        }
+        this.$eventBus.$emit('addCart', good)
       }
     }
   }
