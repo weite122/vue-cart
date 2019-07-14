@@ -15,6 +15,7 @@
 
 <script>
   import Cart from "./components/Cart.vue";
+  import axios from 'axios';
 
   export default {
     name: "app",
@@ -25,13 +26,13 @@
       return {
         name: "学习课程",
         text: "",
-        goods: [
-          {id: 1, text: "c", price: 100},
-          {id: 2, text: "web", price: 80},
-          {id: 3, text: "Python", price: 60},
-          {id: 4, text: "Java", price: 80}
-        ]
+        goods: []
       }
+    },
+    async created(){
+      const response = await axios.get('/api/goods')
+      console.log(response)
+      this.goods = response.data.list
     },
     methods: {
       addCart(i) {
